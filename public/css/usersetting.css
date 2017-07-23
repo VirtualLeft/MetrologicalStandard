@@ -1,0 +1,28 @@
+.tablewrapper {
+}
+
+.clear {
+  clear:both; height: 0; line-height: 0; font-size: 0
+}
+
+.usertable {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.usertable-row-text {
+  padding: 5px;
+}
+
+.usertable-operate-item {
+  text-align:center;
+}
+
+.usertable-header-buttons {
+  display: inline;
+  margin-right: 10px;
+}
+
+.usertable-header-title {
+  margin-left: 10px;
+}
