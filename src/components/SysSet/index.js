@@ -1,13 +1,10 @@
 import React from 'react'
-import { render } from 'react-dom'
 import { RouteWithSubRoutes } from '../../router'
-import { Layout, Menu, Icon, Breadcrumb } from 'antd'
+import { Layout, Menu, Breadcrumb } from 'antd'
 import { Link, Route } from 'react-router-dom'
-import { pageRoute } from '.'
 import UsComponent from './UsComponent'
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const {  Content, Sider } = Layout;
 
 const Bread = ({ section, item }) => {
   return (              

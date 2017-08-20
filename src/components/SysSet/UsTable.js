@@ -165,7 +165,7 @@ export default class UsTable extends MsComponent {
 
   onEditSaved(user) {
     this.props.editQuit()
-    this.props.updateUser(user)
+    this.props.userUpdate(user)
               .then(({ value, action }) => { this.operateSuccess() })
               .catch((error) => { this.operateFail(error) })
   }

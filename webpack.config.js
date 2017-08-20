@@ -20,10 +20,10 @@ module.exports = {
     target: 'electron',
     module: {
         rules: [
-            {
-              test: /\.css$/,
-              use: [ 'style-loader', 'css-loader' ]
-            },
+          {
+            test: /\.(less|css)$/,
+            use:[ 'style-loader','css-loader','less-loader'],
+          },
             {
                 test: /\.js?$/,
                 loader: 'babel-loader',

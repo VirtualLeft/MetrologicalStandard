@@ -1,2 +1,4 @@
 export VerificationMethod from './verificationmethod'
-export VerifyParameterSettings from './verifyparametersettings'
+import VerParamSettingsPage from './VerParamSettingsPage'
+
+export { VerParamSettingsPage }

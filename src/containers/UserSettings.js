@@ -5,25 +5,16 @@ import { getUser, clearUser, addUser, updateUser, delUser, editRequest, actionBy
 
 import * as c from '../constants'
 
-function mapfun(state) {
-  return {
-    users: state.users,
-    editLine: state.editLine,
-    isEditModified: state.editModified,
-    addFormStatus: state.addFormStatus,
-  }
-}
-
 const mapDispatchToProps = (dispatch) => ({
   addRequest: () => dispatch(actionByType(c.ADD_REQUEST)()),
   addModify: () => dispatch(actionByType(c.ADD_MODIFY)()),
   addQuit: () => dispatch(actionByType(c.ADD_QUIT)()),
   editModify: () => dispatch(actionByType(c.EDIT_MODIFY)()),
   editQuit:() => dispatch(actionByType(c.EDIT_QUIT)()),
-  getUser:() => dispatch(getUser()),
+  userGet:() => dispatch(getUser()),
   clearUser: () => dispatch(clearUser()),
-  addUser:(user) => dispatch(addUser(user)),
-  updateUser:(user) => dispatch(updateUser(user)),
+  userAdd:(user) => dispatch(addUser(user)),
+  userUpdate:(user) => dispatch(updateUser(user)),
   delUser: (user) => dispatch(delUser(user)),
   editRequest: (index) => dispatch(editRequest(index)),
 })

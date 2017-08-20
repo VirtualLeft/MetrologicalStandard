@@ -4,7 +4,7 @@ var db = require('electron').remote.require('./db')
 export function getUser() {
   return {
     type: c.GET_USER,
-    payload: db.getUser()
+    payload: db.userGet()
   }
 }
 
@@ -17,21 +17,21 @@ export function clearUser() {
 export function addUser(user) {
   return {
     type: c.ADD_USER,
-    payload: db.addUser(user)
+    payload: db.userAdd(user)
   }
 }
 
 export function updateUser(user) {
   return {
     type: c.UPDATE_USER,
-    payload: db.updateUser(user)
+    payload: db.userUpdate(user)
   }
 }
 
 export function delUser(user) {
   return {
     type: c.DEL_USER,
-    payload: db.deleteUser(user)
+    payload: db.userDelete(user)
   }
 }
 

@@ -1,8 +1,6 @@
 import React from 'react'
 import MsComponent from '../../mscommon'
-import { render } from 'react-dom'
-import { connect } from 'react-redux'
-import { Spin} from 'antd';
+import {Spin} from 'antd';
 import UsTable from './UsTable'
 import UsAddUserDialog from './UsAddUserDialog'
 
@@ -11,7 +9,7 @@ import '../../../public/css/usersetting.css'
 export default class UsComponent extends MsComponent {
   constructor(props) {
     super(props)
-    this.state = { loading: true }
+    this.state = {loading: true}
   }
 
   componentWillMount() {
@@ -19,24 +17,29 @@ export default class UsComponent extends MsComponent {
   }
 
   componentDidMount() {
-    this.props.getUser().then(()=>{this.setState({...this.state, loading: false})})
+    this.props.userGet().then(() => {
+      this.setState({...this.state, loading: false})
+    })
   }
 
   render() {
-    const { dispatch, users, editLine, isEditModified, isAdmin, addFormStatus } = this.props
-    return(
+    const {dispatch, users, editLine, isEditModified, isAdmin, addFormStatus} = this.props
+    return (
       <div className="tablewrapper">
         <Spin size="large" spinning={this.state.loading}>
           <UsAddUserDialog
-            ref={(form) => {this.form = form}}
+            ref={(form) => {
+              this.form = form
+            }}
             visible={addFormStatus.visiable}
             onCancel={() => this.onAddQuited()}
             onCreate={() => this.onAddSaved()}
             onChange={() => this.onAddModified()}
             {...this.props}
           />
-          <UsTable  className='usertable' dataSource={users.userList} bordered editLine={editLine} isAdmin={true} isEditModified={isEditModified || false}
-                    {...this.props}
+          <UsTable className='usertable' dataSource={users.userList} bordered editLine={editLine} isAdmin={true}
+                   isEditModified={isEditModified || false}
+                   {...this.props}
           />
         </Spin>
       </div>
@@ -57,14 +60,20 @@ export default class UsComponent extends MsComponent {
       if (err) {
         return
       }
-      this.props.addUser(values)
-          .then(({ value, action }) => { this.operateSuccess();form.resetFields();this.props.addQuit() })
-          .catch((error) => { this.operateFail(error) })
+      this.props.userAdd(values)
+        .then(({value, action}) => {
+          this.operateSuccess();
+          form.resetFields();
+          this.props.addQuit()
+        })
+        .catch((error) => {
+          this.operateFail(error)
+        })
     })
   }
 
   onAddQuited() {
     this.props.addQuit()
   }
-  
+
 }
