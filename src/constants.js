@@ -20,3 +20,8 @@ export const VERPARAM_GET = 'VERPARAM_GET'
 export const VERPARAM_UPDATE = 'VERPARAM_UPDATE'
 export const VERPARAM_ADD = 'VERPARAM_ADD'
 export const VERPARAM_DEL = 'VERPARAM_DEL'
+
+
+//vfcdatasubmit
+export const VFCDATA_CACHED_GET = 'VFCDATA_CACHED_GET'
+export const VFCDATA_CACHED_SET = 'VFCDATA_CACHED_SET'

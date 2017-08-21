@@ -3,6 +3,7 @@ import MsComponent from '../../../mscommon/MsComponent'
 import {Steps, Spin, Button, Row, Col} from 'antd'
 import '../../../../public/css/vfcdatasubmit.less'
 import VdStepContent from './VdStepContent'
+
 const Step = Steps.Step
 
 export default class VfcDataSubmitPage extends MsComponent {
@@ -31,6 +32,7 @@ export default class VfcDataSubmitPage extends MsComponent {
   render() {
     const {types} = this.props
     const {stepCurrent} = this.state
+    let type = types.length > 0 ? types[stepCurrent] : 0
     return (
       <div id="vfcdatasubmit">
         <Spin size="large" spinning={this.state.loading} style={{display: "inline-block"}}>
@@ -40,7 +42,7 @@ export default class VfcDataSubmitPage extends MsComponent {
             ))}
           </Steps>
           <div className="steps-content">
-            <VdStepContent ID={types.length > 0 ? types[stepCurrent].ID : ""}/>
+            <VdStepContent {...this.props} type={type} index={stepCurrent}/>
           </div>
           <div className="steps-action">
             {

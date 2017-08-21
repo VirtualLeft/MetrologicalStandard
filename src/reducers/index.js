@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux' 
+import { combineReducers } from 'redux'
+import srdvfc from './srdvfc'
 import sysset from './sysset'
 import verset from './verset'
 
 export default combineReducers({
-    sysset, verset
+  srdvfc, sysset, verset
 })

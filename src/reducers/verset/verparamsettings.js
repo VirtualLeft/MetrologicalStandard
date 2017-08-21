@@ -44,7 +44,7 @@ const params = (state = initialState, action) => {
     case `${c.VERUNIT_GET}_FULFILLED`:
       return {...state, units: action.payload, ...promiseState(action.type)}
     default:
-      return initialState
+      return {...state}
   }
 }
 
