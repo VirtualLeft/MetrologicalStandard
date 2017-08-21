@@ -14,7 +14,7 @@ export default class VdStepContent_1 extends React.Component {
                  ref="currentVdTable"
                  params={paramsSelected}
                  units={unitsSelected}
-                 rowCount={10}
+                 rowCount={6}
                  firstLevel={true}
         />
       )

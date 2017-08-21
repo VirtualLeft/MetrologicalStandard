@@ -27,6 +27,7 @@ export default class VfcDataSubmitPage extends MsComponent {
       .then(() => this.props.verParamGet())
       .then(() => this.props.verUnitsGet())
       .then(this.setState({...this.state, loading: false}))
+    console.log(this.refs.vdStepContent.refs.vdStepContent_i)
   }
 
   render() {
@@ -42,7 +43,7 @@ export default class VfcDataSubmitPage extends MsComponent {
             ))}
           </Steps>
           <div className="steps-content">
-            <VdStepContent {...this.props} type={type} index={stepCurrent}/>
+            <VdStepContent ref="vdStepContent" {...this.props} type={type} index={stepCurrent}/>
           </div>
           <div className="steps-action">
             {
