@@ -8,7 +8,8 @@ const mapDispatchToProps = (dispatch) => ({
   verTypesGet: () => dispatch(veraction.verTypesGet()),
   verUnitsGet: () => dispatch(veraction.verUnitsGet()),
   verParamGet: () => dispatch(veraction.verParamGet()),
-  vfcDataCachedSet: (cachedData, id) => dispatch(vfcaction.vfcDataCachedSet(cachedData, id))
+  vfcCachedDataSet: (cachedData, id) => dispatch(vfcaction.vfcCachedDataSet(cachedData, id)),
+  vfcCachedDataClear: () => dispatch(vfcaction.vfcCachedDataClear())
 })
 
 const mapStateToProps = (state) => ({

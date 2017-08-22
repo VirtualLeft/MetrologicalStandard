@@ -6,7 +6,7 @@ export default class VpParam {
     return Enumerable.from(params).where(x => x.PARAM_BELONG === belongID).orderBy(x => parseFloat(x.PARAM_VALUE)).toArray()
   }
   static getParamsByParent(params, parentID) {
-    return Enumerable.from(params).where(x => x.PARAM_PARENT === belongID).orderBy(x => parseFloat(x.PARAM_VALUE)).toArray()
+    return Enumerable.from(params).where(x => x.PARAM_PARENT === parentID).orderBy(x => parseFloat(x.PARAM_VALUE)).toArray()
   }
 
   static getGradationByType(types, typeID) {

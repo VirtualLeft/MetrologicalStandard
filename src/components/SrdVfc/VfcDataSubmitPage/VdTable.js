@@ -1,45 +1,36 @@
 import React from 'react'
-import {Table, Input, Button} from 'antd'
-
+import {Table, Input} from 'antd'
+import _ from 'lodash'
 export default class VdTable extends React.Component {
   constructor(props) {
     super(props)
-    this.cachedData = []
-    this.data = []
-    props.params.map((param, i) => {
-      this.data.push({key: i + 1, paramName: param.PARAM_NAME})
-      let dataList = []
-      for (let i = 0; i < props.rowCount; i++) {
-        dataList.push(0)
-      }
-      this.cachedData.push({vpID: param.ID, vpName: param.PARAM_NAME, dataListCount: props.rowCount, dataList: dataList})
-    })
-    this.columns = [{title: "核查项目", dataIndex: "paramName", key: "paramName", width: "5%"}]
-    for (let i = 0; i < this.props.rowCount; i++) {
+    this.columns = [{title: "核查项目", dataIndex: "PARAM_NAME", key: "PARAM_NAME", width: "5%"}]
+    for (let i = 0; i < this.props.columnCount; i++) {
       this.columns.push({
         title: `第 ${i + 1} 次测量值`,
-        dataIndex: `data_${i}`,
-        key: `data_${i}`,
-        width: `${95 / this.props.rowCount}%`,
+        dataIndex: `data_${i + 1}`,
+        key: `data_${i + 1}`,
+        width: `${95 / this.props.columnCount}%`,
         className: "vdtable-column-id",
         render: (text, record, index) => this.renderColumns(text, record, index, i),
       })
     }
   }
 
-  saveCachedData() {
-    this.props.vfcDataCachedSet(this.cachedData, this.props.index)
-  }
-
   renderColumns(text, record, columnIndex, rowIndex) {
-    return <Input onChange={e => this.cachedData[columnIndex].dataList[rowIndex] = e.target.value}/>
+    return (
+    <div>
+      <Input defaultValue={parseInt(text) !== 0 ? text : ""}
+             key={record.ID}
+             onChange={e => this.props.setCachedData(record.ID, rowIndex, e.target.value)}/>
+    </div>
+    )
   }
 
   render() {
     return (
       <div>
-        <Table columns={this.columns} dataSource={this.data} pagination={false} bordered={false}/>
-        {/*<Button onClick={() => this.saveCachedData()}>save</Button>*/}
+        <Table columns={this.columns} dataSource={this.props.dataSource} pagination={false} bordered={false}/>
       </div>
     )
   }

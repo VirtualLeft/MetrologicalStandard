@@ -13,13 +13,17 @@ export default class VfcDataSubmitPage extends MsComponent {
   }
 
   stepNext() {
+    let vdtableDom = this.refs.vdStepContent.refs.vdStepContent_i
     let current = this.state.stepCurrent + 1
     this.setState({...this.state, stepCurrent: current})
+    vdtableDom.saveCachedData()
   }
 
   stepPrev() {
+    let vdtableDom = this.refs.vdStepContent.refs.vdStepContent_i
     let current = this.state.stepCurrent - 1
     this.setState({...this.state, stepCurrent: current})
+    vdtableDom.saveCachedData()
   }
 
   componentDidMount() {
@@ -27,7 +31,10 @@ export default class VfcDataSubmitPage extends MsComponent {
       .then(() => this.props.verParamGet())
       .then(() => this.props.verUnitsGet())
       .then(this.setState({...this.state, loading: false}))
-    console.log(this.refs.vdStepContent.refs.vdStepContent_i)
+  }
+
+  componentWillUnmount() {
+    this.props.vfcCachedDataClear()
   }
 
   render() {
@@ -47,17 +54,17 @@ export default class VfcDataSubmitPage extends MsComponent {
           </div>
           <div className="steps-action">
             {
-              this.state.stepCurrent < types.length - 1
+              stepCurrent < types.length - 1
               &&
               <Button type="primary" onClick={() => this.stepNext()}>继续</Button>
             }
             {
-              this.state.stepCurrent === types.length - 1
+              stepCurrent === this.props.types.length - 1
               &&
               <Button type="primary" onClick={() => this.operateSuccess()}>完成</Button>
             }
             {
-              this.state.stepCurrent > 0
+              stepCurrent > 0
               &&
               <Button style={{marginLeft: 8}} onClick={() => this.stepPrev()}>后退</Button>
             }

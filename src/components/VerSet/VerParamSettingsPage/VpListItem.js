@@ -1,6 +1,7 @@
 import React from 'react'
 import {Input, Select, Row, Col, Popconfirm} from 'antd'
 import VpUnitTrans from './VpUnitTrans'
+import VpParam from '../../../mscommon/VpParam'
 import _ from "lodash"
 import Transition from '../../../transition'
 
@@ -81,7 +82,7 @@ export default class VpListItem extends React.Component {
   verParamUpdate() {
     if (!_.isEmpty(this.paramValue) || !_.isEmpty(this.paramUnit)) {
       this.props.param.PARAM_NAME = `${this.paramValue}${this.paramUnit}`
-      this.props.param.PARAM_VALUE = VpUnitTrans.translateValue(this.paramValue, this.paramUnit, this.props.units)
+      this.props.param.PARAM_VALUE = VpParam.translateValue(this.paramValue, this.paramUnit, this.props.units)
     }
     this.props.verParamUpdate(this.props.param)
       .then(this.quitEditMode())
@@ -99,7 +100,7 @@ export default class VpListItem extends React.Component {
     if (!_.isEmpty(this.paramValue) && !_.isEmpty(this.paramUnit)) {
       console.log(this.props.units)
       param.PARAM_NAME = `${this.paramValue}${this.paramUnit}`
-      param.PARAM_VALUE = VpUnitTrans.translateValue(this.paramValue, this.paramUnit, this.props.units)
+      param.PARAM_VALUE = VpParam.translateValue(this.paramValue, this.paramUnit, this.props.units)
       param.PARAM_TYPE = this.props.units[0].PARAM_TYPE
       this.props.firstLevel ? param.PARAM_BELONG = this.props.parent : param.PARAM_PARENT = this.props.parent
       this.props.verParamAdd(param)
@@ -111,7 +112,7 @@ export default class VpListItem extends React.Component {
   }
 
   render() {
-    let {paramValue, paramUnit} = VpUnitTrans.translate(this.props.param, this.props.units)
+    let {paramValue, paramUnit} = VpParam.translate(this.props.param, this.props.units)
     this.paramValue = paramValue
     this.paramUnit = paramUnit
     return (

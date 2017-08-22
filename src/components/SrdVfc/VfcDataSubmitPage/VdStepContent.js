@@ -6,11 +6,11 @@ import VdStepContent_3 from './VdStepContent_3'
 const VdStepContentByDeep = (props, deep) => {
   switch (parseInt(deep)) {
     case 1:
-      return <VdStepContent_1 ref="vdStepContent_i" {...props}/>
+      return <VdStepContent_1 ref="vdStepContent_i" columnCount={6} {...props}/>
     case 2:
-      return <VdStepContent_2 ref="vdStepContent_i" {...props}/>
+      return <VdStepContent_2 ref="vdStepContent_i" columnCount={6} {...props}/>
     case 3:
-      return <VdStepContent_3 ref="vdStepContent_i" {...props}/>
+      return <VdStepContent_3 ref="vdStepContent_i" columnCount={6} {...props}/>
     default:
       return <div>error</div>
   }
@@ -21,14 +21,11 @@ export default class VdStepContent extends React.Component {
     super(props)
   }
 
-  componentDidMount() {
-    console.log(this.refs.vdStepContent)
-  }
-
   render() {
     let deep = this.props.type.VP_DEEP
     return (
       <div>
+        {/*<VdStepContent_1 ref="vdStepContent_i" columnCount={6} {...this.props}/>*/}
         {VdStepContentByDeep(this.props, deep)}
       </div>
     )
