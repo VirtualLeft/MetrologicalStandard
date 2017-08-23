@@ -8,15 +8,16 @@ export default class VpUnitTrans {
 
   static translate(param, units) {
     if (!_.isEmpty(param) && !_.isEmpty(units) && _.isArray(units)) {
-      let tmpValue = param.PARAM_VALUE
+      let tmpValue = parseFloat(param.PARAM_VALUE)
       let tmpUnit = Enumerable.from(units).where(x => parseFloat(x.PARAM_RATIO) === 1.0).toArray()[0].PARAM_UNIT
       units.map((unit) => {
-        let roundValue = param.PARAM_VALUE / parseFloat(unit.PARAM_RATIO)
+        let roundValue = parseFloat(param.PARAM_VALUE) / parseFloat(unit.PARAM_RATIO)
         if (VpUnitTrans.compareValue(tmpValue, roundValue)) {
           tmpValue = roundValue
           tmpUnit = unit.PARAM_UNIT
         }
       })
+      tmpValue = tmpValue.toFixed(2)
       return {paramValue: tmpValue, paramUnit: tmpUnit}
     }
     else

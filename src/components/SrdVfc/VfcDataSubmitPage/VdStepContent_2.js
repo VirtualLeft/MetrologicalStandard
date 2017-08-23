@@ -47,7 +47,7 @@ export default class VdStepContent_2 extends React.Component {
       return (<div/>)
     else
       return (
-        <Collapse accordion defaultActiveKey={'0'}>
+        <Collapse accordion defaultActiveKey={'0'} key={this.props.index} >
           {paramsSelected_1.map((param, i) => {
             let {paramValue, paramUnit} = VpParam.translate(param, unitsSelected_1)
             let paramsSelected_2 = VpParam.getParamsByParent(this.props.params, param.ID)

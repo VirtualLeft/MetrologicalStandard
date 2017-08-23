@@ -51,8 +51,6 @@ const OperateBox = (props) => {
             取消
           </a>
       }
-
-
     </div>
   )
 }
@@ -98,10 +96,9 @@ export default class VpListItem extends React.Component {
   verParamAdd() {
     let param = {}
     if (!_.isEmpty(this.paramValue) && !_.isEmpty(this.paramUnit)) {
-      console.log(this.props.units)
       param.PARAM_NAME = `${this.paramValue}${this.paramUnit}`
       param.PARAM_VALUE = VpParam.translateValue(this.paramValue, this.paramUnit, this.props.units)
-      param.PARAM_TYPE = this.props.units[0].PARAM_TYPE
+      param.PARAM_TYPE = VpParam.getUnitByName(this.props.units, this.paramUnit).PARAM_TYPE
       this.props.firstLevel ? param.PARAM_BELONG = this.props.parent : param.PARAM_PARENT = this.props.parent
       this.props.verParamAdd(param)
         .then(this.props.cancelAdd())

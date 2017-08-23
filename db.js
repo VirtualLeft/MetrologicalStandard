@@ -79,7 +79,10 @@ function verUnitsGet() {
 function verParamUpdate(param) {
   return new Promise(function (resolve, reject) {
     let stmt = db.prepare("UPDATE MS_VP_PARAM SET PARAM_NAME=?, PARAM_VALUE=? WHERE ID=?")
-    stmt.run([param.PARAM_NAME, parseFloat(param.PARAM_VALUE), parseInt(param.ID)], function (err) {
+    let paramValue = param.PARAM_VALUE
+    if(param.PARAM_TYPE !== 0)
+      paramValue = parseFloat(paramValue)
+    stmt.run([param.PARAM_NAME, paramValue, parseInt(param.ID)], function (err) {
       err ? reject(err) :
         db.all("SELECT * FROM MS_VP_PARAM", function (err, rows) {
           err ? reject(err) : resolve(rows)
@@ -91,7 +94,11 @@ function verParamUpdate(param) {
 function verParamAdd(param) {
   return new Promise(function (resolve, reject) {
     let stmt = db.prepare("INSERT INTO MS_VP_PARAM (PARAM_NAME, PARAM_VALUE, PARAM_TYPE, PARAM_PARENT, PARAM_BELONG) VALUES (?, ?, ?, ?, ?)")
-    stmt.run([param.PARAM_NAME, parseFloat(param.PARAM_VALUE), parseInt(param.PARAM_TYPE), parseInt(param.PARAM_PARENT), parseInt(param.PARAM_BELONG)], function (err) {
+    let paramValue = param.PARAM_VALUE
+    if(param.PARAM_TYPE !== 0) {
+      paramValue = parseFloat(paramValue)
+    }
+    stmt.run([param.PARAM_NAME, paramValue, parseInt(param.PARAM_TYPE), parseInt(param.PARAM_PARENT), parseInt(param.PARAM_BELONG)], function (err) {
       err ? reject(err) :
         db.all("SELECT * FROM MS_VP_PARAM", function (err, rows) {
           err ? reject(err) : resolve(rows)

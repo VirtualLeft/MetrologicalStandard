@@ -2,20 +2,17 @@ import React from 'react'
 import VpList from './VpList'
 import VpParam from '../../../mscommon/VpParam'
 
-const VpTabbedPage_1 = (props) => {
-  let paramsSelected = VpParam.getParamsByBelong(props.params, props.ID)
-  let unitsSelected = paramsSelected.length > 0 ? VpParam.getUnitsByType(props.units, paramsSelected[0].PARAM_TYPE): props.units
-  if (paramsSelected.length <= 0 || unitsSelected.length <= 0)
-    return (<div/>)
-  else
-    return (
-      <VpList {...props}
-              params={paramsSelected}
-              units={unitsSelected}
-              parent={props.ID}
-              firstLevel={true}
-      />
-    )
+export default class VpTabbedPage_1 extends React.Component {
+  render() {
+    const {params, ID, units} = this.props
+    let paramsSelected = VpParam.getParamsByBelong(params, ID)
+    let unitsSelected = paramsSelected.length > 0 ? VpParam.getUnitsByType(units, paramsSelected[0].PARAM_TYPE) : units
+    return (<VpList {...this.props}
+                    params={paramsSelected}
+                    units={unitsSelected}
+                    parent={ID}
+                    firstLevel={true}/>)
+
+  }
 }
 
-export default VpTabbedPage_1
