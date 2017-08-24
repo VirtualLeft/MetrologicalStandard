@@ -23,7 +23,6 @@ export default class VfcDataSubmitPage extends MsComponent {
 
   stepTo(nextStep) {
     let vdtableDom = this.refs.vdStepContent.refs.vdStepContent_i
-    let current = this.state.stepCurrent + 1
     this.setState({...this.state, stepCurrent: nextStep})
     vdtableDom.saveCachedData()
   }
@@ -43,7 +42,10 @@ export default class VfcDataSubmitPage extends MsComponent {
     let vdtableDom = this.refs.vdStepContent.refs.vdStepContent_i
     vdtableDom.saveCachedData()
     this.checkSubmitedData()
-    this.setState({...this.state, page: "result"})
+    VpParam.runAvgCal(this.props.cachedDataGroup)
+      // .then((dataGroup) => {dataGroup.map((dataList, i) => this.props.vfcCachedDataSet(dataList, i))})
+      .then(() => this.setState({...this.state, page: "result"}))
+
   }
 
   backToSubmitPage() {
@@ -54,11 +56,19 @@ export default class VfcDataSubmitPage extends MsComponent {
     this.props.verTypesGet()
       .then(() => this.props.verParamGet())
       .then(() => this.props.verUnitsGet())
-      .then(this.setState({...this.state, loading: false}))
+      .then(() => this.setState({...this.state, loading: false}))
   }
 
   componentWillUnmount() {
     this.props.vfcCachedDataClear()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.params.length > 0 && nextProps.units.length > 0){
+      return true
+    }
+    else
+      return false
   }
 
   render() {
@@ -76,7 +86,7 @@ export default class VfcDataSubmitPage extends MsComponent {
               ))}
             </Steps>
             <div className="steps-content">
-              <VdStepContent ref="vdStepContent" {...this.props} type={type} index={stepCurrent}/>
+              <VdStepContent ref="vdStepContent" {...this.props} type={type} index={stepCurrent} columnCount={6}/>
             </div>
             <div className="steps-action">
               {
@@ -97,7 +107,7 @@ export default class VfcDataSubmitPage extends MsComponent {
             </div>
           </div>
           :
-            <VpDataResult {...this.props} backToSubmitPage={() => this.backToSubmitPage()} dataSource={this.props.cachedDataGroup}/>
+            <VpDataResult {...this.props} backToSubmitPage={() => this.backToSubmitPage()} dataSource={this.props.cachedDataGroup} columnCount={6}/>
         }
       </Spin>
     )

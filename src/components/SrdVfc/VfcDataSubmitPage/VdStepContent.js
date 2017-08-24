@@ -6,11 +6,11 @@ import VdStepContent_3 from './VdStepContent_3'
 const VdStepContentByDeep = (props, deep) => {
   switch (parseInt(deep)) {
     case 1:
-      return <VdStepContent_1 ref="vdStepContent_i" columnCount={6} {...props}/>
+      return <VdStepContent_1 ref="vdStepContent_i" {...props}/>
     case 2:
-      return <VdStepContent_2 ref="vdStepContent_i" columnCount={6} {...props}/>
+      return <VdStepContent_2 ref="vdStepContent_i" {...props}/>
     case 3:
-      return <VdStepContent_3 ref="vdStepContent_i" columnCount={6} {...props}/>
+      return <VdStepContent_3 ref="vdStepContent_i" {...props}/>
     default:
       return <div>error</div>
   }

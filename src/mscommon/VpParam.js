@@ -9,9 +9,8 @@ export default class VpParam {
   static getParamsByParent(params, parentID) {
     return Enumerable.from(params).where(x => x.PARAM_PARENT === parentID).orderBy(x => parseFloat(x.PARAM_VALUE)).toArray()
   }
-
-  static getFirstLevelCountByID(params, ID) {
-    return Enumerable.from(params).where(x => x.PARAM_BELONG === parentID).orderBy(x => parseFloat(x.PARAM_VALUE)).toArray().length
+  static getParamByID(params, ID) {
+    return Enumerable.from(params).firstOrDefault(x => parseInt(x.ID) === parseInt(ID))
   }
 
   static getSecondLevelCountByID(params, ID) {
@@ -54,7 +53,7 @@ export default class VpParam {
   }
 
   static getUnitByName(units, unitName) {
-    return Enumerable.from(units).first(x => x.PARAM_UNIT === unitName)
+    return Enumerable.from(units).firstOrDefault(x => x.PARAM_UNIT === unitName)
   }
 
   static compareValue(oriValue, newValue) {
@@ -68,7 +67,7 @@ export default class VpParam {
     }
     if (!_.isEmpty(param) && !_.isEmpty(units) && _.isArray(units)) {
       let tmpValue = parseFloat(param.PARAM_VALUE)
-      let tmpUnitValue = Enumerable.from(units).first(x => parseFloat(x.PARAM_RATIO) === 1.0).PARAM_UNIT
+      let tmpUnitValue = Enumerable.from(units).firstOrDefault(x => parseFloat(x.PARAM_RATIO) === 1.0).PARAM_UNIT
       units.map((unit) => {
         let roundValue = parseFloat(param.PARAM_VALUE) / parseFloat(unit.PARAM_RATIO)
         if (VpParam.compareValue(tmpValue, roundValue)) {
@@ -84,7 +83,6 @@ export default class VpParam {
 
   static translateValue(paramValue, paramUnit, units) {
     if(units.length > 0 && VpParam.getUnitByName(units, paramUnit).PARAM_TYPE === 0) {
-      console.log(paramValue)
       return paramValue
     }
     let t_unit = Enumerable.from(units).where(x => x.PARAM_UNIT === paramUnit).toArray()
@@ -93,13 +91,41 @@ export default class VpParam {
 
   static runAvgCal(dataGroup) {
     return new Promise(function(resolve, reject) {
+      let time = new Date()
       dataGroup.map((dataList, i) => {
         dataList.map((data, j) => {
-          for(let k = 1; k <= data.dataCount; k++) {
+          let xavg = 0, sj = 0, n = data.dataCount
+          for(let k = 1; k <= n; k++) {
+            xavg += parseFloat(data[`data_${k}`])
           }
+          xavg /= n
+          data["xavg"] = xavg
+          for(let k = 1; k <= n; k++) {
+            sj += Math.pow(parseFloat(data[`data_${k}`])-xavg, 2)
+          }
+          sj = Math.sqrt(sj / (n - 1))
+          data["sj"] = sj
+          data["time"] = time.toDateString()
         })
       })
+      resolve(dataGroup)
     })
+  }
+
+  static insertData2Cell(dataGroup, cell) {
+    let param = null
+    for(let i = 0; i < dataGroup.length; i++) {
+      if(param = VpParam.getParamByID(dataGroup[i], cell.ID))
+        break
+    }
+    if(param) {
+      for(let i = 1; i <= param.dataCount; i++) {
+        cell[`data_${i}`] = param[`data_${i}`]
+      }
+      cell["xavg"] = param.xavg
+      cell["sj"] = param.sj
+      cell["time"] = param.time
+    }
   }
 
   static runSdCal(dataGroup) {

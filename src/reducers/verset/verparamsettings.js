@@ -26,7 +26,7 @@ const params = (state = initialState, action) => {
     case `${c.VERPARAM_UPDATE}_PENDING`:
     case `${c.VERPARAM_ADD}_PENDING`:
     case `${c.VERPARAM_DEL}_PENDING`:
-    return {...state, ...promiseState(action.type)}
+      return {...state, ...promiseState(action.type)}
     case `${c.VERTYPE_GET}_REJECTED`:
     case `${c.VERPARAM_GET}_REJECTED`:
     case `${c.VERUNIT_GET}_REJECTED`:

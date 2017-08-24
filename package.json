@@ -49,6 +49,7 @@
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "bluebird": "^3.5.0",
+    "echarts": "^3.7.0",
     "electron": "^1.6.11",
     "electron-rebuild": "^1.5.11",
     "less": "^2.7.2",

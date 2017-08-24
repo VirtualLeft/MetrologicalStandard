@@ -16,6 +16,7 @@ export default class VdStepContent_2 extends React.Component {
         let dataCell = {}
         dataCell["key"] = `[${i}][${j}]`
         dataCell["PARAM_PARENT"] = param.PARAM_PARENT
+        dataCell["PARAM_BELONG"] = param.PARAM_BELONG
         dataCell["ID"] = param.ID
         dataCell["PARAM_NAME"] = param.PARAM_NAME
         dataCell["dataCount"] = this.props.columnCount
